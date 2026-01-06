@@ -54,16 +54,16 @@ export function Expertise() {
   );
 
   return (
-    <section className="py-24 bg-[#f4f4f4] overflow-hidden">
-      <div className="container mx-auto px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+    <section className="py-12 sm:py-16 md:py-24 bg-[#f4f4f4] overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-20">
           {/* Left Side: Content & Intro */}
-          <div className="lg:col-span-4 flex flex-col justify-center space-y-8">
-            <h2 className="tracking-tight text-[#0b2677] leading-tight">
+          <div className="lg:col-span-4 flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8">
+            <h2 className="tracking-tight text-[#0b2677] leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
               Industry Expertise
             </h2>
 
-            <div className="space-y-6 text-[#0b2677]/70 leading-relaxed">
+            <div className="space-y-4 sm:space-y-6 text-[#0b2677]/70 leading-relaxed text-sm sm:text-base">
               <p>
                 NeoRecruits believes in employing the best. We are the best
                 recruitment agency in the region, consisting of a team of
@@ -80,7 +80,7 @@ export function Expertise() {
 
             <div className="pt-2">
               <Button
-                className="rounded-lg bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white h-12 px-6 text-xs md:text-sm font-bold tracking-widest uppercase"
+                className="rounded-lg bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white h-11 sm:h-12 px-5 sm:px-6 text-xs font-bold tracking-widest uppercase w-full sm:w-auto"
                 asChild
               >
                 <Link href="/services">
@@ -92,9 +92,9 @@ export function Expertise() {
           </div>
 
           {/* Right Side: Carousel */}
-          <div className="lg:col-span-8 flex flex-col gap-8">
+          <div className="lg:col-span-8 flex flex-col gap-6 sm:gap-8">
             {/* Nav Buttons (Top Right of the right column) */}
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-center sm:justify-end gap-2">
               <button
                 className="h-10 w-10 flex items-center justify-center rounded-md border border-gray-200 text-gray-300 hover:text-[#0b2677] hover:border-gray-400 transition-all bg-white"
                 onClick={scrollPrev}
@@ -113,14 +113,14 @@ export function Expertise() {
 
             {/* Carousel Viewport */}
             <div ref={emblaRef} className="overflow-hidden">
-              <div className="flex -ml-6">
+              <div className="flex -ml-4 sm:-ml-6">
                 {industries.map((industry) => (
                   <div
                     key={industry.id}
-                    className="flex-[0_0_85%] md:flex-[0_0_48%] min-w-0 pl-6"
+                    className="flex-[0_0_85%] sm:flex-[0_0_70%] md:flex-[0_0_48%] min-w-0 pl-4 sm:pl-6"
                   >
                     <div className="group cursor-pointer">
-                      <div className="relative h-[280px] w-full overflow-hidden rounded-xl bg-gray-100">
+                      <div className="relative h-[200px] sm:h-[240px] md:h-[280px] w-full overflow-hidden rounded-xl bg-gray-100">
                         <Image
                           src={industry.image}
                           alt={industry.title}
@@ -128,7 +128,7 @@ export function Expertise() {
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
-                      <h3 className="mt-6 text-[#0b2677] group-hover:text-[#9a01cd] transition-colors">
+                      <h3 className="mt-4 sm:mt-6 text-[#0b2677] group-hover:text-[#9a01cd] transition-colors text-base sm:text-lg md:text-xl">
                         {industry.title}
                       </h3>
                     </div>

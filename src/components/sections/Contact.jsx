@@ -39,50 +39,56 @@ export function Contact() {
   };
 
   return (
-    <section className="relative py-24 bg-[#f4f4f4] overflow-hidden">
-      <div className="container mx-auto px-10">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+    <section className="relative py-12 sm:py-16 md:py-24 bg-[#f4f4f4] overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-24">
           {/* Left Side: Content */}
-          <div className="lg:w-1/2 space-y-8">
-            <h2 className="tracking-tight text-[#0b2677] leading-tight">
-              Let's Build Your <br /> Dream Team.
+          <div className="lg:w-1/2 space-y-4 sm:space-y-6 md:space-y-8">
+            <h2 className="tracking-tight text-[#0b2677] leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
+              Let's Build Your <br className="hidden sm:block" /> Dream Team.
             </h2>
-            <p className="text-[#0b2677]/70 leading-relaxed">
+            <p className="text-[#0b2677]/70 leading-relaxed text-sm sm:text-base">
               Whether you're looking for executive leadership, a specialized
               technical team, or a complete RPO solution, NeoRecruits has the
               expertise to deliver.
             </p>
 
-            <div className="space-y-6 pt-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
-                  <CheckCircle2 className="w-6 h-6" />
+            <div className="space-y-4 sm:space-y-6 pt-2 sm:pt-4">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
+                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#0b2677]">Global Reach</h4>
-                  <p className="text-sm text-[#0b2677]/60">
+                  <h4 className="font-bold text-[#0b2677] text-sm sm:text-base">
+                    Global Reach
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#0b2677]/60">
                     Access talent across 40+ countries.
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
-                  <CheckCircle2 className="w-6 h-6" />
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
+                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#0b2677]">Industry Experts</h4>
-                  <p className="text-sm text-[#0b2677]/60">
+                  <h4 className="font-bold text-[#0b2677] text-sm sm:text-base">
+                    Industry Experts
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#0b2677]/60">
                     Recruiters with specialized sector knowledge.
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
-                  <CheckCircle2 className="w-6 h-6" />
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
+                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#0b2677]">Fast Turnaround</h4>
-                  <p className="text-sm text-[#0b2677]/60">
+                  <h4 className="font-bold text-[#0b2677] text-sm sm:text-base">
+                    Fast Turnaround
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#0b2677]/60">
                     Shortlists delivered in days, not weeks.
                   </p>
                 </div>
@@ -92,7 +98,7 @@ export function Contact() {
 
           {/* Right Side: Form */}
           <div className="lg:w-1/2">
-            <div className="bg-white border border-gray-100 rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden">
+            <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 shadow-xl relative overflow-hidden">
               {/* Decorative Gradient Blob */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#539ce0]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 

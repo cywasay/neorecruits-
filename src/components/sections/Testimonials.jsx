@@ -46,23 +46,23 @@ export function Testimonials() {
   );
 
   return (
-    <section className="py-24 bg-[#f4f4f4] overflow-hidden">
-      <div className="container mx-auto px-10">
+    <section className="py-12 sm:py-16 md:py-24 bg-[#f4f4f4] overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10">
         {/* Main Section Heading */}
-        <div className="text-center mb-20">
-          <h2 className="text-[#0b2677] tracking-tight leading-tight">
+        <div className="text-center mb-10 sm:mb-16 md:mb-20">
+          <h2 className="text-[#0b2677] tracking-tight leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
             What Our Clients Say About Us
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start lg:items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start lg:items-center">
           {/* Left Side: Static Content */}
-          <div className="lg:col-span-5 space-y-6">
-            <h3 className="text-[#0b2677] tracking-tight">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6">
+            <h3 className="text-[#0b2677] tracking-tight text-lg sm:text-xl md:text-2xl">
               Their Words, Not Ours
             </h3>
 
-            <p className="text-[#0b2677]/70 leading-relaxed max-w-md">
+            <p className="text-[#0b2677]/70 leading-relaxed max-w-md text-sm sm:text-base">
               NeoRecruits is trusted by government entities, global brands and
               local businesses to provide the best in talent solutions. But
               don't just take our word for it! Here's what some of our clients
@@ -94,39 +94,45 @@ export function Testimonials() {
           {/* Right Side: Carousel Card */}
           <div className="lg:col-span-7 relative pl-0 lg:pl-10">
             {/* Navigation Buttons */}
-            <div className="absolute top-1/2 -translate-y-1/2 -left-4 lg:-left-0 z-20">
+            <div className="absolute top-1/2 -translate-y-1/2 left-0 sm:-left-2 lg:-left-0 z-20">
               <button
                 onClick={scrollPrev}
-                className="w-12 h-12 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-600 flex items-center justify-center transition-colors -ml-6"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-600 flex items-center justify-center transition-colors -ml-2 sm:-ml-6"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
 
-            <div className="absolute top-1/2 -translate-y-1/2 -right-4 lg:-right-6 z-20">
+            <div className="absolute top-1/2 -translate-y-1/2 right-0 sm:-right-2 lg:-right-6 z-20">
               <button
                 onClick={scrollNext}
-                className="w-12 h-12 rounded-lg bg-[#0b2677] hover:bg-[#0b2677]/90 text-white flex items-center justify-center transition-colors shadow-xl"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-[#0b2677] hover:bg-[#0b2677]/90 text-white flex items-center justify-center transition-colors shadow-xl -mr-2 sm:mr-0"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
 
             {/* Carousel Viewport */}
-            <div className="overflow-hidden px-4 py-8" ref={emblaRef}>
+            <div
+              className="overflow-hidden px-2 sm:px-4 py-6 sm:py-8"
+              ref={emblaRef}
+            >
               <div className="flex">
                 {testimonials.map((item) => (
-                  <div key={item.id} className="flex-[0_0_100%] min-w-0 px-4">
-                    <div className="relative pt-10">
+                  <div
+                    key={item.id}
+                    className="flex-[0_0_100%] min-w-0 px-2 sm:px-4"
+                  >
+                    <div className="relative pt-8 sm:pt-10">
                       {/* The Card */}
-                      <div className="bg-white border border-gray-100 rounded-2xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 relative z-10 min-h-[280px] flex flex-col justify-center items-center">
+                      <div className="bg-white border border-gray-100 rounded-xl sm:rounded-2xl p-5 sm:p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 relative z-10 min-h-[220px] sm:min-h-[280px] flex flex-col justify-center items-center">
                         {/* Floating Avatar - Simplified */}
-                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-400">
-                          <User className="w-8 h-8 fill-current" />
+                        <div className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-1/2 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-400">
+                          <User className="w-6 h-6 sm:w-8 sm:h-8 fill-current" />
                         </div>
 
-                        <div className="text-center mt-6 space-y-5 w-full">
-                          <p className="text-[#0b2677]/80 leading-relaxed font-medium">
+                        <div className="text-center mt-4 sm:mt-6 space-y-3 sm:space-y-5 w-full">
+                          <p className="text-[#0b2677]/80 leading-relaxed font-medium text-sm sm:text-base">
                             "{item.content}"
                           </p>
 

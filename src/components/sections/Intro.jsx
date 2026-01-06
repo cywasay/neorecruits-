@@ -45,12 +45,12 @@ export function Intro() {
         }}
       />
 
-      <div className="container mx-auto px-10 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Side: Overlapping Images (Reflecting the SS) */}
-          <div className="relative h-[400px] w-full">
+          <div className="relative h-[300px] sm:h-[350px] md:h-[400px] w-full">
             {/* Back Image (Architecture/City) */}
-            <div className="absolute top-0 left-0 w-[70%] h-[280px] rounded-xl overflow-hidden shadow-lg z-0">
+            <div className="absolute top-0 left-0 w-[65%] sm:w-[70%] h-[200px] sm:h-[240px] md:h-[280px] rounded-xl overflow-hidden shadow-lg z-0">
               <Image
                 src="/hero-3.png"
                 alt="Infrastructure"
@@ -61,7 +61,7 @@ export function Intro() {
             </div>
 
             {/* Front Image (People/Office) */}
-            <div className="absolute bottom-0 right-0 w-[75%] h-[260px] rounded-xl overflow-hidden shadow-2xl border-4 border-[#0b2677] z-10">
+            <div className="absolute bottom-0 right-0 w-[70%] sm:w-[75%] h-[180px] sm:h-[220px] md:h-[260px] rounded-xl overflow-hidden shadow-2xl border-4 border-[#0b2677] z-10">
               <Image
                 src="/intro-experience.png"
                 alt="Teamwork"
@@ -72,12 +72,12 @@ export function Intro() {
           </div>
 
           {/* Right Side: Content */}
-          <div className="space-y-6">
-            <h2 className="tracking-tight text-white leading-tight">
+          <div className="space-y-4 sm:space-y-6">
+            <h2 className="tracking-tight text-white leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
               We build leading edge infrastructure within your organisation
             </h2>
 
-            <div className="space-y-4 text-white/70 leading-relaxed">
+            <div className="space-y-3 sm:space-y-4 text-white/70 leading-relaxed text-sm sm:text-base">
               <p>
                 NeoRecruits is considered the best recruitment agency in the
                 region that provides a comprehensive range of solutions to
@@ -95,7 +95,7 @@ export function Intro() {
             <div className="pt-2">
               <Button
                 variant="outline"
-                className="group h-12 px-6 rounded-lg bg-white text-black hover:bg-white/90 border-none flex items-center gap-3 transition-all text-xs md:text-sm font-bold tracking-widest uppercase"
+                className="group h-11 sm:h-12 px-5 sm:px-6 rounded-lg bg-white text-black hover:bg-white/90 border-none flex items-center gap-3 transition-all text-xs font-bold tracking-widest uppercase w-full sm:w-auto justify-center sm:justify-start"
                 asChild
               >
                 <Link href="/about">
@@ -108,17 +108,20 @@ export function Intro() {
         </div>
 
         {/* Stats Section - More compact */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 border-t border-white/5 mt-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-12 border-t border-white/5 mt-8 sm:mt-12">
           {stats.map((stat) => (
-            <div key={stat.label} className="space-y-1 group">
-              <div className="flex items-center gap-2 mb-1">
+            <div
+              key={stat.label}
+              className="space-y-1 group text-center sm:text-left"
+            >
+              <div className="flex items-center gap-2 mb-1 justify-center sm:justify-start">
                 <stat.icon
                   className={cn(
                     "w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity",
                     stat.color
                   )}
                 />
-                <span className="text-2xl font-bold tracking-tighter text-white">
+                <span className="text-xl sm:text-2xl font-bold tracking-tighter text-white">
                   {stat.value}
                 </span>
               </div>

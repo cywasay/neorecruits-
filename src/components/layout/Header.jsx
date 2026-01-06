@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import {
@@ -91,15 +92,16 @@ export function Header() {
       <div className="container mx-auto px-4 md:px-6">
         <nav className="flex items-center justify-between">
           {/* Brand Name */}
-          <Link href="/" className="group">
-            <span
+          <Link href="/" className="group relative h-10 w-40 block">
+            <Image
+              src="/mainLogo.png"
+              alt="NeoRecruits"
+              fill
               className={cn(
-                "text-xl font-extrabold tracking-tight transition-colors",
-                isScrolled ? "text-[#0b2677]" : "text-white"
+                "object-contain object-left transition-all duration-300"
               )}
-            >
-              Neo<span className="text-[#9a01cd]">Recruits</span>
-            </span>
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -147,9 +149,14 @@ export function Header() {
               >
                 <SheetHeader>
                   <SheetTitle className="text-left">
-                    <span className="text-xl font-extrabold tracking-tight text-[#0b2677]">
-                      Neo<span className="text-[#9a01cd]">Recruits</span>
-                    </span>
+                    <div className="relative h-10 w-40">
+                      <Image
+                        src="/mainLogo.png"
+                        alt="NeoRecruits"
+                        fill
+                        className="object-contain object-left"
+                      />
+                    </div>
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-6 mt-8">

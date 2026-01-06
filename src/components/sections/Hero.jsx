@@ -141,7 +141,12 @@ export function Hero() {
           {slides.map((slide, index) => (
             <CarouselItem
               key={slide.id}
-              className="pl-0 relative w-full h-[600px] md:h-[700px] lg:h-[calc(100vh-80px)] min-h-[600px]"
+              className={cn(
+                "pl-0 relative w-full",
+                slide.showSearch
+                  ? "h-[750px] sm:h-[700px] md:h-[750px] lg:h-[calc(100vh-80px)] min-h-[700px]"
+                  : "h-[550px] sm:h-[600px] md:h-[700px] lg:h-[calc(100vh-80px)] min-h-[550px]"
+              )}
             >
               {/* Image Container */}
               <div className="absolute inset-0 w-full h-full z-0">
@@ -236,7 +241,7 @@ export function Hero() {
               </div>
 
               {/* Content Layer with Framer Motion Animations */}
-              <div className="relative z-10 container mx-auto px-10 h-full flex items-center">
+              <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-10 h-full flex items-center">
                 <AnimatePresence mode="wait">
                   {current === index && (
                     <motion.div
@@ -245,7 +250,7 @@ export function Hero() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="max-w-3xl space-y-6"
+                      className="max-w-3xl space-y-4 sm:space-y-5 md:space-y-6"
                     >
                       {/* Badge */}
                       <motion.div
@@ -258,7 +263,7 @@ export function Hero() {
                       >
                         <Badge
                           variant="outline"
-                          className="px-4 py-1.5 text-white border-white/30 bg-white/10 backdrop-blur-md text-sm font-semibold"
+                          className="px-3 py-1 sm:px-4 sm:py-1.5 text-white border-white/30 bg-white/10 backdrop-blur-md text-xs sm:text-sm font-semibold"
                         >
                           {slide.badge}
                         </Badge>
@@ -272,7 +277,7 @@ export function Hero() {
                           ...smoothTransition,
                           delay: staggerDelay * 1,
                         }}
-                        className="tracking-tight text-white leading-tight"
+                        className="tracking-tight text-white leading-tight text-2xl sm:text-3xl md:text-4xl lg:text-[34pt]"
                       >
                         {slide.title}
                       </motion.h1>
@@ -285,7 +290,7 @@ export function Hero() {
                           ...smoothTransition,
                           delay: staggerDelay * 2,
                         }}
-                        className="text-white/70 max-w-2xl leading-relaxed"
+                        className="text-white/70 max-w-2xl leading-relaxed text-sm sm:text-base md:text-lg"
                       >
                         {slide.subtitle}
                       </motion.p>
@@ -298,10 +303,10 @@ export function Hero() {
                           ...smoothTransition,
                           delay: staggerDelay * 3,
                         }}
-                        className="flex flex-wrap gap-4 pt-4"
+                        className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 sm:pt-4"
                       >
                         <Button
-                          className="h-12 px-6 rounded-lg shadow-2xl shadow-[#9a01cd]/30 bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white border-none text-xs md:text-sm font-bold tracking-widest uppercase"
+                          className="h-11 sm:h-12 px-5 sm:px-6 rounded-lg shadow-2xl shadow-[#9a01cd]/30 bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white border-none text-xs font-bold tracking-widest uppercase w-full sm:w-auto"
                           asChild
                         >
                           <Link href={slide.cta1.href}>
@@ -311,7 +316,7 @@ export function Hero() {
                         </Button>
                         <Button
                           variant="outline"
-                          className="h-12 px-6 rounded-lg border-2 bg-white/10 backdrop-blur-xl hover:bg-white/20 text-white transition-all text-xs md:text-sm font-bold tracking-widest uppercase"
+                          className="h-11 sm:h-12 px-5 sm:px-6 rounded-lg border-2 bg-white/10 backdrop-blur-xl hover:bg-white/20 text-white transition-all text-xs font-bold tracking-widest uppercase w-full sm:w-auto"
                           asChild
                         >
                           <Link href={slide.cta2.href}>{slide.cta2.text}</Link>
@@ -327,25 +332,27 @@ export function Hero() {
                             ...smoothTransition,
                             delay: staggerDelay * 4,
                           }}
-                          className="mt-12 p-3 bg-white/10 backdrop-blur-3xl border border-white/20 rounded-[2rem] shadow-[0_32px_64px_-15px_rgba(0,0,0,0.3)] max-w-3xl"
+                          className="mt-6 sm:mt-8 md:mt-12 p-2 sm:p-3 bg-white/10 backdrop-blur-3xl border border-white/20 rounded-2xl sm:rounded-[2rem] shadow-[0_32px_64px_-15px_rgba(0,0,0,0.3)] max-w-3xl"
                         >
-                          <div className="flex flex-col md:flex-row items-stretch gap-2">
-                            <div className="relative flex-1 group">
-                              <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white transition-colors group-focus-within:text-white" />
-                              <Input
-                                placeholder="Job title or keyword"
-                                className="pl-12 h-14 bg-transparent border-none focus-visible:ring-0 text-white text-lg placeholder:text-white/50"
-                              />
+                          <div className="flex flex-col gap-2">
+                            <div className="flex flex-col sm:flex-row items-stretch gap-2">
+                              <div className="relative flex-1 group">
+                                <Briefcase className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-white transition-colors group-focus-within:text-white" />
+                                <Input
+                                  placeholder="Job title or keyword"
+                                  className="pl-10 sm:pl-12 h-12 sm:h-14 bg-transparent border-none focus-visible:ring-0 text-white text-base sm:text-lg placeholder:text-white/50"
+                                />
+                              </div>
+                              <div className="w-px bg-white/20 hidden sm:block my-3" />
+                              <div className="relative flex-1 group">
+                                <MapPin className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-white transition-colors group-focus-within:text-white" />
+                                <Input
+                                  placeholder="Location"
+                                  className="pl-10 sm:pl-12 h-12 sm:h-14 bg-transparent border-none focus-visible:ring-0 text-white text-base sm:text-lg placeholder:text-white/50"
+                                />
+                              </div>
                             </div>
-                            <div className="w-px bg-white/20 hidden md:block my-3" />
-                            <div className="relative flex-1 group">
-                              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white transition-colors group-focus-within:text-white" />
-                              <Input
-                                placeholder="Location"
-                                className="pl-12 h-14 bg-transparent border-none focus-visible:ring-0 text-white text-lg placeholder:text-white/50"
-                              />
-                            </div>
-                            <Button className="h-12 px-8 rounded-lg font-bold text-xs md:text-sm uppercase tracking-widest shadow-xl shadow-[#9a01cd]/20 active:scale-95 transition-transform bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white">
+                            <Button className="h-11 sm:h-12 px-6 sm:px-8 rounded-lg font-bold text-xs uppercase tracking-widest shadow-xl shadow-[#9a01cd]/20 active:scale-95 transition-transform bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white w-full sm:w-auto sm:self-end">
                               Search
                             </Button>
                           </div>

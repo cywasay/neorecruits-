@@ -47,7 +47,7 @@ export function Locations() {
   const [activeOffice, setActiveOffice] = React.useState(null);
 
   return (
-    <section className="relative py-24 bg-[#0b2677] overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-24 bg-[#0b2677] overflow-hidden">
       {/* Subtle Geometric Background Pattern Backdrop */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -56,11 +56,11 @@ export function Locations() {
         }}
       />
 
-      <div className="container mx-auto px-10 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left Side: Interactive Stylized Map */}
           <div className="lg:col-span-1 w-full lg:w-3/5">
-            <div className="relative aspect-[16/9] w-full bg-[#2165b8]/20 rounded-3xl border border-white/10 overflow-hidden group">
+            <div className="relative aspect-[4/3] sm:aspect-[16/9] w-full bg-[#2165b8]/20 rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden group">
               {/* Simple Stylized Map SVG Backdrop */}
               <svg
                 viewBox="0 0 1000 500"
@@ -115,8 +115,8 @@ export function Locations() {
                 </div>
               ))}
 
-              <div className="absolute bottom-6 left-8">
-                <h3 className="text-white/40 text-xs font-bold uppercase tracking-[0.3em]">
+              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-8">
+                <h3 className="text-white/40 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em]">
                   NeoRecruits Global Footprint
                 </h3>
               </div>
@@ -124,23 +124,23 @@ export function Locations() {
           </div>
 
           {/* Right Side: Content & Office Blocks */}
-          <div className="w-full lg:w-2/5 space-y-12">
-            <div className="space-y-4">
-              <h2 className="tracking-tight text-white leading-tight">
+          <div className="w-full lg:w-2/5 space-y-6 sm:space-y-8 md:space-y-12">
+            <div className="space-y-3 sm:space-y-4">
+              <h2 className="tracking-tight text-white leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
                 Where to find us
               </h2>
-              <p className="text-white/70 leading-relaxed">
+              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
                 Our global reach ensures we are exactly where you need us to be.
                 Connect with our regional experts today.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4">
               {offices.map((office) => (
                 <div
                   key={office.id}
                   className={cn(
-                    "group relative p-6 rounded-2xl border transition-all duration-500 overflow-hidden cursor-default",
+                    "group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl border transition-all duration-500 overflow-hidden cursor-default",
                     activeOffice === office.id
                       ? "bg-white border-white"
                       : "bg-white/5 border-white/10 hover:border-white/20"
@@ -162,7 +162,7 @@ export function Locations() {
                       </div>
                       <h4
                         className={cn(
-                          "text-2xl font-bold tracking-tight transition-colors",
+                          "text-lg sm:text-xl md:text-2xl font-bold tracking-tight transition-colors",
                           activeOffice === office.id
                             ? "text-[#0b2677]"
                             : "text-white"
@@ -184,21 +184,21 @@ export function Locations() {
                   {/* Hover Details */}
                   <div
                     className={cn(
-                      "grid grid-cols-1 gap-4 mt-6 pt-6 border-t transition-all duration-500 origin-top",
+                      "grid grid-cols-1 gap-3 sm:gap-4 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t transition-all duration-500 origin-top",
                       activeOffice === office.id
                         ? "opacity-100 max-h-40 border-[#0b2677]/10"
                         : "opacity-0 max-h-0 border-transparent overflow-hidden"
                     )}
                   >
-                    <div className="flex items-start gap-3 text-[#0b2677]/80 text-sm">
+                    <div className="flex items-start gap-2 sm:gap-3 text-[#0b2677]/80 text-xs sm:text-sm">
                       <MapPin className="w-4 h-4 mt-0.5 text-[#9a01cd]" />
                       <span>{office.address}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-[#0b2677]/80 text-sm">
+                    <div className="flex items-center gap-2 sm:gap-3 text-[#0b2677]/80 text-xs sm:text-sm">
                       <Phone className="w-4 h-4 text-[#9a01cd]" />
                       <span>{office.phone}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-[#0b2677]/80 text-sm font-medium">
+                    <div className="flex items-center gap-2 sm:gap-3 text-[#0b2677]/80 text-xs sm:text-sm font-medium">
                       <Clock className="w-4 h-4 text-[#9a01cd]" />
                       <span>{office.hours}</span>
                     </div>

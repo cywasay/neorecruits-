@@ -42,7 +42,7 @@ const posts = [
 
 export function Blog() {
   return (
-    <section className="relative py-24 bg-[#0b2677] overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-24 bg-[#0b2677] overflow-hidden">
       {/* Subtle Geometric Background Pattern Backdrop */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -51,20 +51,20 @@ export function Blog() {
         }}
       />
 
-      <div className="container mx-auto px-10 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
-          <div className="space-y-4">
-            <h2 className="tracking-tight text-white leading-tight">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-8 mb-10 sm:mb-16">
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="tracking-tight text-white leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
               Latest Insights
             </h2>
-            <p className="text-white/70 leading-relaxed max-w-xl">
+            <p className="text-white/70 leading-relaxed max-w-xl text-sm sm:text-base">
               Stay ahead of the curve with our expert analysis on recruitment
               trends, leadership strategies, and market shifts.
             </p>
           </div>
           <Button
-            className="rounded-lg bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white h-12 px-6 text-xs md:text-sm font-bold tracking-widest uppercase"
+            className="rounded-lg bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white h-11 sm:h-12 px-5 sm:px-6 text-xs sm:text-xs md:text-sm font-bold tracking-widest uppercase w-full sm:w-auto"
             asChild
           >
             <Link href="/insights">
@@ -75,7 +75,7 @@ export function Blog() {
         </div>
 
         {/* Blog Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {posts.map((post) => (
             <Link
               href={`/insights/${post.id}`}
@@ -100,7 +100,7 @@ export function Blog() {
               </div>
 
               {/* Content */}
-              <div className="flex flex-col flex-1 p-8 space-y-4">
+              <div className="flex flex-col flex-1 p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-4 text-xs font-bold text-white/40 uppercase tracking-wider">
                   <span className="flex items-center gap-1">
                     <Clock className="w-3 h-3 text-[#539ce0]" />
@@ -110,7 +110,7 @@ export function Blog() {
                   <span>{post.date}</span>
                 </div>
 
-                <h3 className="text-white group-hover:text-[#539ce0] transition-colors line-clamp-2 leading-snug">
+                <h3 className="text-white group-hover:text-[#539ce0] transition-colors line-clamp-2 leading-snug text-lg sm:text-xl font-bold">
                   {post.title}
                 </h3>
 

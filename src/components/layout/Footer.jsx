@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Facebook,
   Twitter,
@@ -15,15 +16,18 @@ import { Input } from "@/components/ui/input";
 
 export function Footer() {
   return (
-    <footer className="bg-[#0b2677] text-white pt-20 pb-10 border-t border-white/5">
-      <div className="container mx-auto px-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+    <footer className="bg-[#0b2677] text-white pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-10 border-t border-white/5">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-10 sm:mb-16">
           {/* Brand & Social */}
           <div className="space-y-6">
-            <Link href="/" className="inline-block">
-              <h2 className="text-2xl font-extrabold tracking-tight uppercase">
-                Neo<span className="text-[#9a01cd]">Recruits</span>
-              </h2>
+            <Link href="/" className="inline-block relative h-12 w-48">
+              <Image
+                src="/mainLogo.png"
+                alt="NeoRecruits"
+                fill
+                className="object-contain object-left brightness-0 invert"
+              />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed">
               Reshaping the future of recruitment with AI-driven insights and a
@@ -182,7 +186,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-6 sm:pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <p className="text-white/40 text-xs">
             &copy; {new Date().getFullYear()} NeoRecruits. All rights reserved.
           </p>
