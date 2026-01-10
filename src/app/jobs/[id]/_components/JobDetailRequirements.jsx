@@ -14,7 +14,7 @@ export function JobDetailRequirements({ job }) {
         {job.requirements.map((requirement, index) => (
           <li key={index} className="flex items-start gap-3">
             <span className="text-[#9a01cd] font-bold text-lg mt-0.5">•</span>
-            <span className="text-base sm:text-lg text-[#0b2677]/70 leading-relaxed grow
+            <span className="text-base sm:text-lg text-[#0b2677]/70 leading-relaxed grow">
               {requirement}
             </span>
           </li>
