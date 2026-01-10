@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu } from "lucide-react";
+import { Menu, Home, Users, Briefcase, Building2, FileText, LogIn, UserPlus, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import {
@@ -16,11 +16,11 @@ import {
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Industries", href: "/industries" },
-  { name: "Job Portal", href: "/jobs" },
+  { name: "Home", href: "/", icon: Home },
+  { name: "About Us", href: "/about", icon: Users },
+  { name: "Services", href: "/services", icon: Briefcase },
+  { name: "Industries", href: "/industries", icon: Building2 },
+  { name: "Job Portal", href: "/jobs", icon: FileText },
 ];
 
 export function Header() {
@@ -51,7 +51,7 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-out",
         isScrolled
-          ? "bg-white border-b border-[#e5e5e5] shadow-md backdrop-blur-sm"
+          ? "bg-white/10 backdrop-blur-md border-b border-white/20 shadow-sm"
           : "bg-transparent border-b border-transparent"
       )}
     >
@@ -66,7 +66,7 @@ export function Header() {
               sizes="160px"
               className={cn(
                 "object-contain object-left transition-all duration-300",
-                isScrolled ? "brightness-0" : "brightness-0 invert"
+                "brightness-0 invert"
               )}
               priority
             />
@@ -80,9 +80,7 @@ export function Header() {
                 href={link.href}
                 className={cn(
                   "text-sm font-medium transition-colors duration-300",
-                  isScrolled
-                    ? "text-[#0b2677] hover:text-[#9a01cd]"
-                    : "text-white hover:text-white/80"
+                  "text-white hover:text-white/80"
                 )}
               >
                 {link.name}
@@ -122,7 +120,7 @@ export function Header() {
                 >
                   <Button
                     variant="outline"
-                    className="border-2 border-[#0b2677]/20 text-[#0b2677] hover:bg-[#0b2677] hover:text-white font-bold uppercase tracking-wider text-xs px-4 py-2 transition-all duration-300"
+                    className="border-2 border-white/30 text-white hover:bg-white/20 hover:text-white font-bold uppercase tracking-wider text-xs px-4 py-2 transition-all duration-300"
                     asChild
                   >
                     <Link href="/contact">Contact Us</Link>
@@ -141,9 +139,7 @@ export function Header() {
                   size="icon"
                   className={cn(
                     "transition-all duration-300",
-                    isScrolled
-                      ? "text-[#0b2677] hover:bg-[#0b2677]/10"
-                      : "text-white hover:bg-white/10"
+                    "text-white hover:bg-white/10"
                   )}
                 >
                   <Menu className="w-6 h-6" />
@@ -151,9 +147,9 @@ export function Header() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[300px] sm:w-[400px] bg-white"
+                className="w-[320px] sm:w-[400px] bg-white/95 backdrop-blur-xl border-l border-white/20 p-0 overflow-y-auto"
               >
-                <SheetHeader>
+                <SheetHeader className="px-6 pt-6 pb-4 border-b border-[#e5e5e5]/50">
                   <SheetTitle className="text-left">
                     <div className="relative h-10 w-40">
                       <Image
@@ -166,32 +162,50 @@ export function Header() {
                     </div>
                   </SheetTitle>
                 </SheetHeader>
-                <div className="flex flex-col gap-6 mt-8">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      className="text-lg font-semibold border-b border-[#e5e5e5] pb-4 text-[#0b2677] hover:text-[#9a01cd] transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                  <div className="flex flex-col gap-3 mt-4">
+                
+                <div className="flex flex-col px-6 pt-6 pb-6">
+                  {/* Navigation Links */}
+                  <nav className="flex flex-col gap-2 mb-6">
+                    {navLinks.map((link) => {
+                      const Icon = link.icon;
+                      return (
+                        <Link
+                          key={link.name}
+                          href={link.href}
+                          className="group flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-[#0b2677] hover:text-[#9a01cd] hover:bg-[#9a01cd]/5 transition-all duration-200"
+                        >
+                          <Icon className="w-5 h-5 text-[#9a01cd]/60 group-hover:text-[#9a01cd] transition-colors" />
+                          <span>{link.name}</span>
+                        </Link>
+                      );
+                    })}
+                  </nav>
+
+                  {/* Divider */}
+                  <div className="h-px bg-linear-to-r from-transparent via-[#e5e5e5] to-transparent my-4"></div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col gap-3">
                     <Button
                       variant="ghost"
-                      className="w-full justify-center text-lg py-6 text-[#0b2677] hover:bg-[#0b2677]/10 font-semibold"
+                      className="w-full justify-start gap-3 text-base py-6 px-4 text-[#0b2677] hover:bg-[#0b2677]/10 font-semibold rounded-lg transition-all duration-200"
                     >
+                      <LogIn className="w-5 h-5" />
                       Log in
                     </Button>
-                    <Button className="w-full justify-center text-lg py-6 bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white font-bold uppercase tracking-wider">
+                    <Button className="w-full justify-center gap-3 text-base py-6 px-4 bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-200 shadow-lg shadow-[#9a01cd]/20">
+                      <UserPlus className="w-5 h-5" />
                       Sign up
                     </Button>
                     <Button
                       variant="outline"
-                      className="w-full justify-center text-lg py-6 border-2 border-[#0b2677]/20 text-[#0b2677] hover:bg-[#0b2677] hover:text-white font-bold uppercase tracking-wider"
+                      className="w-full justify-center gap-3 text-base py-6 px-4 border-2 border-[#0b2677]/20 text-[#0b2677] hover:bg-[#0b2677] hover:text-white hover:border-[#0b2677] font-bold uppercase tracking-wider rounded-lg transition-all duration-200"
                       asChild
                     >
-                      <Link href="/contact">Contact Us</Link>
+                      <Link href="/contact">
+                        <Phone className="w-5 h-5" />
+                        Contact Us
+                      </Link>
                     </Button>
                   </div>
                 </div>
