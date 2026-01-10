@@ -127,7 +127,7 @@ export function Hero() {
   }, [api]);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#0b2677]">
+    <section className="relative w-full overflow-hidden bg-[#0b2677] h-screen">
       <Carousel
         setApi={setApi}
         plugins={[autoplay.current, fade.current]}
@@ -135,17 +135,17 @@ export function Hero() {
           loop: true,
           duration: 30,
         }}
-        className="w-full"
+        className="w-full h-full"
       >
-        <CarouselContent className="ml-0">
+        <CarouselContent className="ml-0 h-full">
           {slides.map((slide, index) => (
             <CarouselItem
               key={slide.id}
               className={cn(
                 "pl-0 relative w-full",
                 slide.showSearch
-                  ? "h-[700px] sm:h-[750px] md:h-[800px] lg:h-screen min-h-[700px]"
-                  : "h-[550px] sm:h-[600px] md:h-[700px] lg:h-screen min-h-[550px]"
+                  ? "h-screen sm:h-[750px] md:h-[800px] lg:h-screen"
+                  : "h-screen sm:h-[600px] md:h-[700px] lg:h-screen"
               )}
             >
               {/* Image Container */}
@@ -251,7 +251,7 @@ export function Hero() {
               </div>
 
               {/* Content Layer with Framer Motion Animations */}
-              <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-10 h-full flex items-center pt-16">
+              <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-10 h-full flex items-center pt-20 sm:pt-24 md:pt-16">
                 <AnimatePresence mode="wait">
                   {current === index && (
                     <motion.div
