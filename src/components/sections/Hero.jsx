@@ -144,8 +144,8 @@ export function Hero() {
               className={cn(
                 "pl-0 relative w-full",
                 slide.showSearch
-                  ? "h-[750px] sm:h-[700px] md:h-[750px] lg:h-[calc(100vh-80px)] min-h-[700px]"
-                  : "h-[550px] sm:h-[600px] md:h-[700px] lg:h-[calc(100vh-80px)] min-h-[550px]"
+                  ? "h-[700px] sm:h-[750px] md:h-[800px] lg:h-screen min-h-[700px]"
+                  : "h-[550px] sm:h-[600px] md:h-[700px] lg:h-screen min-h-[550px]"
               )}
             >
               {/* Image Container */}
@@ -158,13 +158,23 @@ export function Hero() {
                   className="object-cover object-center transition-transform duration-10000 hover:scale-105"
                   sizes="100vw"
                 />
-                <div className="absolute inset-0 bg-linear-to-r from-[#0b2677] via-[#0b2677]/60 to-transparent" />
-                <div className="absolute inset-0 bg-linear-to-t from-[#0b2677]/40 via-transparent to-transparent" />
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: "linear-gradient(to right, #0b2677, rgba(11, 38, 119, 0.6), transparent)"
+                  }}
+                />
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: "linear-gradient(to top, rgba(11, 38, 119, 0.4), transparent, transparent)"
+                  }}
+                />
               </div>
 
               {/* Smoke Layer */}
               <div
-                className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-[5]"
+                className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-10"
                 style={{
                   maskImage:
                     "linear-gradient(to right, transparent 0%, black 20%, black 100%), radial-gradient(ellipse 90% 80% at 60% 45%, black 40%, transparent 75%)",
@@ -241,7 +251,7 @@ export function Hero() {
               </div>
 
               {/* Content Layer with Framer Motion Animations */}
-              <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-10 h-full flex items-center">
+              <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-10 h-full flex items-center pt-16">
                 <AnimatePresence mode="wait">
                   {current === index && (
                     <motion.div

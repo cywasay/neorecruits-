@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import {
   Sheet,
@@ -26,79 +27,46 @@ export function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
+    // Handle scroll state on mount and scroll events
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY || window.pageYOffset;
+      // Transition to solid after 15px scroll (middle of 10-20px range)
+      setIsScrolled(scrollY > 15);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  const ActionButtons = ({ mobile = false }) => (
-    <div
-      className={cn(
-        "flex items-center gap-3",
-        mobile && "flex-col w-full mt-4"
-      )}
-    >
-      {!isScrolled ? (
-        <React.Fragment key="auth-btns">
-          <Button
-            variant="ghost"
-            className={cn(
-              "font-semibold text-white hover:text-white hover:bg-white/10",
-              !mobile &&
-                "animate-in fade-in slide-in-from-right-4 duration-500",
-              mobile &&
-                "w-full justify-center text-lg py-6 text-[#0b2677] hover:text-[#0b2677] hover:bg-[#0b2677]/10"
-            )}
-          >
-            Log in
-          </Button>
-          <Button
-            className={cn(
-              "bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white font-bold uppercase tracking-wider text-xs",
-              !mobile &&
-                "animate-in fade-in slide-in-from-right-4 duration-500 delay-75",
-              mobile && "w-full justify-center text-lg py-6"
-            )}
-          >
-            Sign up
-          </Button>
-        </React.Fragment>
-      ) : (
-        <Button
-          key="contact-btn"
-          className={cn(
-            "bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white font-bold uppercase tracking-wider text-xs",
-            !mobile && "animate-in fade-in zoom-in-95 duration-500",
-            mobile && "w-full justify-center text-lg py-6"
-          )}
-        >
-          Contact Us
-        </Button>
-      )}
-    </div>
-  );
+    // Check initial scroll position on mount
+    handleScroll();
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+        "fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-out",
         isScrolled
-          ? "bg-[#f4f4f4]/95 backdrop-blur-md border-[#e5e5e5] py-2 shadow-sm"
-          : "bg-transparent border-transparent py-4"
+          ? "bg-white border-b border-[#e5e5e5] shadow-md backdrop-blur-sm"
+          : "bg-transparent border-b border-transparent"
       )}
     >
-      <div className="container mx-auto px-4 md:px-6">
-        <nav className="flex items-center justify-between">
-          {/* Brand Name */}
-          <Link href="/" className="group relative h-10 w-40 block">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10">
+        <nav className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="relative h-10 w-40 block">
             <Image
               src="/mainLogo.png"
               alt="NeoRecruits"
               fill
+              sizes="160px"
               className={cn(
-                "object-contain object-left transition-all duration-300"
+                "object-contain object-left transition-all duration-300",
+                isScrolled ? "brightness-0" : "brightness-0 invert"
               )}
               priority
             />
@@ -111,10 +79,10 @@ export function Header() {
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-sm font-medium transition-colors",
+                  "text-sm font-medium transition-colors duration-300",
                   isScrolled
-                    ? "text-[#0b2677]/70 hover:text-[#9a01cd]"
-                    : "text-white/80 hover:text-white"
+                    ? "text-[#0b2677] hover:text-[#9a01cd]"
+                    : "text-white hover:text-white/80"
                 )}
               >
                 {link.name}
@@ -123,11 +91,48 @@ export function Header() {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center">
-            <ActionButtons />
+          <div className="hidden md:flex items-center gap-3 min-w-[200px] justify-end">
+            <AnimatePresence mode="wait">
+              {!isScrolled ? (
+                <motion.div
+                  key="auth-buttons"
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex items-center gap-3"
+                >
+                  <Button
+                    variant="ghost"
+                    className="font-semibold transition-all duration-300 text-white hover:bg-white/10"
+                  >
+                    Log in
+                  </Button>
+                  <Button className="bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white font-bold uppercase tracking-wider text-xs">
+                    Sign up
+                  </Button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="contact-button"
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Button
+                    variant="outline"
+                    className="border-2 border-[#0b2677]/20 text-[#0b2677] hover:bg-[#0b2677] hover:text-white font-bold uppercase tracking-wider text-xs px-4 py-2 transition-all duration-300"
+                    asChild
+                  >
+                    <Link href="/contact">Contact Us</Link>
+                  </Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Mobile Navigation (Shadcn Sheet) */}
+          {/* Mobile Menu */}
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -135,6 +140,7 @@ export function Header() {
                   variant="ghost"
                   size="icon"
                   className={cn(
+                    "transition-all duration-300",
                     isScrolled
                       ? "text-[#0b2677] hover:bg-[#0b2677]/10"
                       : "text-white hover:bg-white/10"
@@ -145,7 +151,7 @@ export function Header() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[300px] sm:w-[400px] bg-[#f4f4f4]"
+                className="w-[300px] sm:w-[400px] bg-white"
               >
                 <SheetHeader>
                   <SheetTitle className="text-left">
@@ -154,7 +160,8 @@ export function Header() {
                         src="/mainLogo.png"
                         alt="NeoRecruits"
                         fill
-                        className="object-contain object-left"
+                        sizes="160px"
+                        className="object-contain object-left brightness-0"
                       />
                     </div>
                   </SheetTitle>
@@ -169,7 +176,24 @@ export function Header() {
                       {link.name}
                     </Link>
                   ))}
-                  <ActionButtons mobile />
+                  <div className="flex flex-col gap-3 mt-4">
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-center text-lg py-6 text-[#0b2677] hover:bg-[#0b2677]/10 font-semibold"
+                    >
+                      Log in
+                    </Button>
+                    <Button className="w-full justify-center text-lg py-6 bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white font-bold uppercase tracking-wider">
+                      Sign up
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-center text-lg py-6 border-2 border-[#0b2677]/20 text-[#0b2677] hover:bg-[#0b2677] hover:text-white font-bold uppercase tracking-wider"
+                      asChild
+                    >
+                      <Link href="/contact">Contact Us</Link>
+                    </Button>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>

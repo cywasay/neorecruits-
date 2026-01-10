@@ -4,8 +4,16 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, Tag } from "lucide-react";
+import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
+
+const smoothTransition = {
+  duration: 1,
+  ease: [0.25, 0.1, 0.25, 1],
+};
+
+const staggerDelay = 0.2;
 
 const posts = [
   {
@@ -41,8 +49,11 @@ const posts = [
 ];
 
 export function Blog() {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
+
   return (
-    <section className="relative py-12 sm:py-16 md:py-24 bg-[#0b2677] overflow-hidden">
+    <section ref={ref} className="relative py-12 sm:py-16 md:py-24 bg-[#0b2677] overflow-hidden">
       {/* Subtle Geometric Background Pattern Backdrop */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -53,8 +64,18 @@ export function Blog() {
 
       <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-8 mb-10 sm:mb-16">
-          <div className="space-y-3 sm:space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: -40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -40 }}
+          transition={{ ...smoothTransition, delay: staggerDelay * 0 }}
+          className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-8 mb-10 sm:mb-16"
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+            transition={{ ...smoothTransition, delay: staggerDelay * 1 }}
+            className="space-y-3 sm:space-y-4"
+          >
             <h2 className="tracking-tight text-white leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
               Latest Insights
             </h2>
@@ -62,26 +83,37 @@ export function Blog() {
               Stay ahead of the curve with our expert analysis on recruitment
               trends, leadership strategies, and market shifts.
             </p>
-          </div>
-          <Button
-            className="rounded-lg bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white h-11 sm:h-12 px-5 sm:px-6 text-xs sm:text-xs md:text-sm font-bold tracking-widest uppercase w-full sm:w-auto"
-            asChild
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+            transition={{ ...smoothTransition, delay: staggerDelay * 1.5 }}
           >
-            <Link href="/insights">
-              View All News
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
-        </div>
+            <Button
+              className="rounded-lg bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white h-11 sm:h-12 px-5 sm:px-6 text-xs sm:text-xs md:text-sm font-bold tracking-widest uppercase w-full sm:w-auto"
+              asChild
+            >
+              <Link href="/insights">
+                View All News
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+          </motion.div>
+        </motion.div>
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {posts.map((post) => (
-            <Link
-              href={`/insights/${post.id}`}
+          {posts.map((post, index) => (
+            <motion.div
               key={post.id}
-              className="group flex flex-col h-full bg-[#2165b8]/20 border border-white/5 rounded-2xl overflow-hidden hover:border-[#539ce0]/30 hover:shadow-2xl hover:shadow-[#539ce0]/5 transition-all duration-300"
+              initial={{ opacity: 0, y: 60 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+              transition={{ ...smoothTransition, delay: staggerDelay * (2 + index * 0.3) }}
             >
+              <Link
+                href={`/insights/${post.id}`}
+                className="group flex flex-col h-full bg-[#2165b8]/20 border border-white/5 rounded-2xl overflow-hidden hover:border-[#539ce0]/30 hover:shadow-2xl hover:shadow-[#539ce0]/5 transition-all duration-300"
+              >
               {/* Image Container */}
               <div className="relative h-60 w-full overflow-hidden">
                 <Image
@@ -124,6 +156,7 @@ export function Blog() {
                 </div>
               </div>
             </Link>
+            </motion.div>
           ))}
         </div>
       </div>

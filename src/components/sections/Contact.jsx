@@ -2,11 +2,21 @@
 
 import * as React from "react";
 import { Upload, Send, CheckCircle2 } from "lucide-react";
+import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
+const smoothTransition = {
+  duration: 1,
+  ease: [0.25, 0.1, 0.25, 1],
+};
+
+const staggerDelay = 0.2;
+
 export function Contact() {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
   const [formState, setFormState] = React.useState({
     name: "",
     email: "",
@@ -39,65 +49,76 @@ export function Contact() {
   };
 
   return (
-    <section className="relative py-12 sm:py-16 md:py-24 bg-[#f4f4f4] overflow-hidden">
+    <section ref={ref} className="relative py-12 sm:py-16 md:py-24 bg-[#f4f4f4] overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 md:px-10">
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-24">
           {/* Left Side: Content */}
-          <div className="lg:w-1/2 space-y-4 sm:space-y-6 md:space-y-8">
-            <h2 className="tracking-tight text-[#0b2677] leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
+            transition={{ ...smoothTransition, delay: staggerDelay * 0 }}
+            className="lg:w-1/2 space-y-4 sm:space-y-6 md:space-y-8"
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ ...smoothTransition, delay: staggerDelay * 1 }}
+              className="tracking-tight text-[#0b2677] leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]"
+            >
               Let's Build Your <br className="hidden sm:block" /> Dream Team.
-            </h2>
-            <p className="text-[#0b2677]/70 leading-relaxed text-sm sm:text-base">
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ ...smoothTransition, delay: staggerDelay * 2 }}
+              className="text-[#0b2677]/70 leading-relaxed text-sm sm:text-base"
+            >
               Whether you're looking for executive leadership, a specialized
               technical team, or a complete RPO solution, NeoRecruits has the
               expertise to deliver.
-            </p>
+            </motion.p>
 
-            <div className="space-y-4 sm:space-y-6 pt-2 sm:pt-4">
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
-                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#0b2677] text-sm sm:text-base">
-                    Global Reach
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#0b2677]/60">
-                    Access talent across 40+ countries.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
-                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#0b2677] text-sm sm:text-base">
-                    Industry Experts
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#0b2677]/60">
-                    Recruiters with specialized sector knowledge.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
-                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#0b2677] text-sm sm:text-base">
-                    Fast Turnaround
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#0b2677]/60">
-                    Shortlists delivered in days, not weeks.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ ...smoothTransition, delay: staggerDelay * 3 }}
+              className="space-y-4 sm:space-y-6 pt-2 sm:pt-4"
+            >
+              {[
+                { title: "Global Reach", desc: "Access talent across 40+ countries." },
+                { title: "Industry Experts", desc: "Recruiters with specialized sector knowledge." },
+                { title: "Fast Turnaround", desc: "Shortlists delivered in days, not weeks." },
+              ].map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                  transition={{ ...smoothTransition, delay: staggerDelay * (3.5 + index * 0.3) }}
+                  className="flex items-center gap-3 sm:gap-4"
+                >
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#539ce0]/10 flex items-center justify-center text-[#539ce0]">
+                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-[#0b2677] text-sm sm:text-base">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-[#0b2677]/60">
+                      {item.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
 
           {/* Right Side: Form */}
-          <div className="lg:w-1/2">
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
+            transition={{ ...smoothTransition, delay: staggerDelay * 1 }}
+            className="lg:w-1/2"
+          >
             <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 shadow-xl relative overflow-hidden">
               {/* Decorative Gradient Blob */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#539ce0]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
@@ -264,7 +285,7 @@ export function Contact() {
                 </form>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

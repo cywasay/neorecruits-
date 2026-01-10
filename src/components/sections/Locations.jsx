@@ -2,7 +2,15 @@
 
 import * as React from "react";
 import { MapPin, Phone, Clock, Mail, ExternalLink } from "lucide-react";
+import { motion, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
+
+const smoothTransition = {
+  duration: 1,
+  ease: [0.25, 0.1, 0.25, 1],
+};
+
+const staggerDelay = 0.2;
 
 const offices = [
   {
@@ -44,10 +52,12 @@ const offices = [
 ];
 
 export function Locations() {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.2 });
   const [activeOffice, setActiveOffice] = React.useState(null);
 
   return (
-    <section className="relative py-12 sm:py-16 md:py-24 bg-[#0b2677] overflow-hidden">
+    <section ref={ref} className="relative py-12 sm:py-16 md:py-24 bg-[#0b2677] overflow-hidden">
       {/* Subtle Geometric Background Pattern Backdrop */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -56,15 +66,21 @@ export function Locations() {
         }}
       />
 
-      <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10 max-w-full overflow-x-hidden">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center w-full">
           {/* Left Side: Interactive Stylized Map */}
-          <div className="lg:col-span-1 w-full lg:w-3/5">
-            <div className="relative aspect-[4/3] sm:aspect-[16/9] w-full bg-[#2165b8]/20 rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden group">
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
+            transition={{ ...smoothTransition, delay: staggerDelay * 0 }}
+            className="lg:col-span-1 w-full lg:w-3/5 min-w-0"
+          >
+            <div className="relative aspect-[4/3] sm:aspect-video w-full max-w-full bg-[#2165b8]/20 rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden group">
               {/* Simple Stylized Map SVG Backdrop */}
               <svg
                 viewBox="0 0 1000 500"
                 className="w-full h-full opacity-20 grayscale"
+                preserveAspectRatio="xMidYMid meet"
               >
                 <path
                   fill="white"
@@ -87,7 +103,7 @@ export function Locations() {
               {offices.map((office) => (
                 <div
                   key={office.id}
-                  className="absolute cursor-pointer transition-all duration-300"
+                  className="absolute cursor-pointer transition-all duration-300 z-10"
                   style={{ left: office.coords.x, top: office.coords.y }}
                   onMouseEnter={() => setActiveOffice(office.id)}
                   onMouseLeave={() => setActiveOffice(null)}
@@ -99,10 +115,10 @@ export function Locations() {
                         activeOffice === office.id ? "scale-150" : "scale-100"
                       )}
                     />
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap max-w-[150px] overflow-hidden">
                       <span
                         className={cn(
-                          "text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded bg-[#0b2677]/80 text-white border border-white/10 transition-opacity duration-300",
+                          "text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded bg-[#0b2677]/80 text-white border border-white/10 transition-opacity duration-300 inline-block",
                           activeOffice === office.id
                             ? "opacity-100"
                             : "opacity-0"
@@ -121,11 +137,21 @@ export function Locations() {
                 </h3>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Side: Content & Office Blocks */}
-          <div className="w-full lg:w-2/5 space-y-6 sm:space-y-8 md:space-y-12">
-            <div className="space-y-3 sm:space-y-4">
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
+            transition={{ ...smoothTransition, delay: staggerDelay * 1 }}
+            className="w-full lg:w-2/5 space-y-6 sm:space-y-8 md:space-y-12"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ ...smoothTransition, delay: staggerDelay * 2 }}
+              className="space-y-3 sm:space-y-4"
+            >
               <h2 className="tracking-tight text-white leading-tight text-xl sm:text-2xl md:text-3xl lg:text-[22pt]">
                 Where to find us
               </h2>
@@ -133,12 +159,15 @@ export function Locations() {
                 Our global reach ensures we are exactly where you need us to be.
                 Connect with our regional experts today.
               </p>
-            </div>
+            </motion.div>
 
             <div className="grid grid-cols-1 gap-3 sm:gap-4">
-              {offices.map((office) => (
-                <div
+              {offices.map((office, index) => (
+                <motion.div
                   key={office.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ ...smoothTransition, delay: staggerDelay * (2.5 + index * 0.3) }}
                   className={cn(
                     "group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl border transition-all duration-500 overflow-hidden cursor-default",
                     activeOffice === office.id
@@ -203,10 +232,10 @@ export function Locations() {
                       <span>{office.hours}</span>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

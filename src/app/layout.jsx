@@ -18,16 +18,19 @@ export const metadata = {
 
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ClientLayout } from "@/components/layout/ClientLayout";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <body
-        className={`${plusJakartaSans.variable} ${geistMono.variable} antialiased font-sans`}
+        className={`${plusJakartaSans.variable} ${geistMono.variable} antialiased font-sans overflow-x-hidden`}
       >
-        <Header />
-        <main className="pt-20">{children}</main>
-        <Footer />
+        <ClientLayout>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ClientLayout>
       </body>
     </html>
   );
