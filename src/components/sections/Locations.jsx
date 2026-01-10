@@ -75,7 +75,7 @@ export function Locations() {
             transition={{ ...smoothTransition, delay: staggerDelay * 0 }}
             className="lg:col-span-1 w-full lg:w-3/5 min-w-0"
           >
-            <div className="relative aspect-[4/3] sm:aspect-video w-full max-w-full bg-[#2165b8]/20 rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden group">
+            <div className="relative aspect-4/3 sm:aspect-video w-full max-w-full bg-[#2165b8]/20 rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden group">
               {/* Simple Stylized Map SVG Backdrop */}
               <svg
                 viewBox="0 0 1000 500"
