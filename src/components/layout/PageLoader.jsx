@@ -4,200 +4,185 @@ import * as React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
+const loadingWords = ["INNOVATING", "CONNECTING", "EMPOWERING", "NEORECRUITS"];
+
 export function PageLoader() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isVisible, setIsVisible] = React.useState(true);
   const [progress, setProgress] = React.useState(0);
+  const [wordIndex, setWordIndex] = React.useState(0);
 
   React.useEffect(() => {
     let progressInterval;
-    let maxTimer;
     let loadTimer;
 
-    // Prevent body scroll while loader is visible
     document.body.style.overflow = "hidden";
-
-    // Set mounted state to avoid hydration issues
-    const handleComplete = () => {
-      // Animate progress to 100%
-      setProgress(100);
-      
-      // Wait a bit for progress animation, then fade out
-      setTimeout(() => {
-        setIsLoading(false);
-        // Add delay before hiding to allow fade-out animation
-        setTimeout(() => {
-          setIsVisible(false);
-          // Re-enable body scroll
-          document.body.style.overflow = "";
-        }, 500);
-      }, 300);
-    };
-
-    const handleLoad = () => {
-      // Minimum display time for smooth UX
-      loadTimer = setTimeout(handleComplete, 800);
-    };
 
     // Progress animation
     progressInterval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 90) {
+        if (prev >= 100) {
           clearInterval(progressInterval);
-          return prev;
+          return 100;
         }
-        return prev + Math.random() * 15;
+        const increment = Math.random() * 8;
+        return Math.min(prev + increment, 100);
       });
-    }, 100);
+    }, 150);
 
-    // Check if page is already loaded
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      // Listen for page load
-      window.addEventListener("load", handleLoad);
+    // Sync word index with progress
+    const wordStep = 100 / loadingWords.length;
+    const currentWordIndex = Math.min(
+      Math.floor(progress / wordStep),
+      loadingWords.length - 1
+    );
+    setWordIndex(currentWordIndex);
+
+    if (progress === 100) {
+      loadTimer = setTimeout(() => {
+        setIsLoading(false);
+        setTimeout(() => {
+          setIsVisible(false);
+          document.body.style.overflow = "";
+        }, 800);
+      }, 500);
     }
-
-    // Fallback: hide loader after max time
-    maxTimer = setTimeout(() => {
-      if (progressInterval) clearInterval(progressInterval);
-      handleComplete();
-    }, 3000);
 
     return () => {
       if (progressInterval) clearInterval(progressInterval);
-      if (maxTimer) clearTimeout(maxTimer);
       if (loadTimer) clearTimeout(loadTimer);
-      window.removeEventListener("load", handleLoad);
-      // Ensure body scroll is re-enabled on unmount
-      document.body.style.overflow = "";
     };
-  }, []);
+  }, [progress]);
 
   if (!isVisible) return null;
 
-  return (
-    <AnimatePresence mode="wait">
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: isLoading ? 1 : 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed inset-0 z-100 flex items-center justify-center bg-linear-to-br from-[#0b2677] via-[#0b2677] to-[#1a3a8f]"
-        >
-          {/* Animated background elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            {/* Gradient orbs */}
-            <motion.div
-              className="absolute top-0 left-0 w-96 h-96 bg-[#9a01cd]/20 rounded-full blur-3xl"
-              animate={{
-                x: [0, 100, 0],
-                y: [0, 50, 0],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            <motion.div
-              className="absolute bottom-0 right-0 w-96 h-96 bg-[#9a01cd]/15 rounded-full blur-3xl"
-              animate={{
-                x: [0, -100, 0],
-                y: [0, -50, 0],
-                scale: [1, 1.3, 1],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-            />
-          </div>
+  const panelVariants = {
+    initial: { y: 0 },
+    exit: (custom) => ({
+      y: custom === "top" ? "-100%" : "100%",
+      transition: { duration: 0.8, ease: [0.65, 0, 0.35, 1], delay: 0.2 },
+    }),
+  };
 
-          {/* Logo Container */}
-          <div className="relative z-10 flex flex-col items-center justify-center">
-            {/* Logo with animations */}
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden pointer-events-none">
+      <AnimatePresence>
+        {isLoading && (
+          <>
+            {/* Top Panel */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.5, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.25, 0.1, 0.25, 1],
-                delay: 0.2,
-              }}
-              className="relative w-48 h-16 sm:w-56 sm:h-20 md:w-64 md:h-24"
+              custom="top"
+              variants={panelVariants}
+              initial="initial"
+              exit="exit"
+              className="absolute top-0 left-0 w-full h-1/2 bg-[#0b2677] z-10"
+            />
+
+            {/* Bottom Panel */}
+            <motion.div
+              custom="bottom"
+              variants={panelVariants}
+              initial="initial"
+              exit="exit"
+              className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0b2677] z-10"
+            />
+
+            {/* Full Screen Diagonal Shimmer */}
+            <motion.div
+              className="absolute inset-0 z-15 pointer-events-none overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
             >
-              <Image
-                src="/mainLogo.png"
-                alt="NeoRecruits"
-                fill
-                sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, 256px"
-                className="object-contain brightness-0 invert"
-                priority
-              />
-              {/* Pulsing glow effect */}
               <motion.div
-                className="absolute inset-0 -z-10 bg-white/20 rounded-lg blur-2xl"
+                className="absolute inset-0 w-[300%] h-[300%] bg-[linear-gradient(135deg,transparent_45%,rgba(255,255,255,0.08)_50%,transparent_55%)]"
                 animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.5, 0.3],
+                  x: ["-50%", "50%"],
+                  y: ["-50%", "50%"],
                 }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: "linear",
                 }}
+                style={{ left: "-100%", top: "-100%" }}
               />
             </motion.div>
 
-            {/* Loading text */}
+            {/* Content Container */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.8,
-              }}
-              className="mt-8 flex items-center justify-center"
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4 }}
+              className="relative z-20 flex flex-col items-center justify-center p-8 pointer-events-auto"
             >
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="text-white/80 text-sm font-medium tracking-wider uppercase"
-              >
-                Loading
-              </motion.p>
-            </motion.div>
-          </div>
+              {/* Background Glow */}
+              <div className="absolute inset-0 -z-10 bg-radial-gradient from-[#9a01cd]/20 to-transparent blur-3xl opacity-50" />
 
-          {/* Progress bar at bottom */}
-          <motion.div
-            className="absolute bottom-0 left-0 right-0 h-1 bg-white/10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <motion.div
-              className="h-full bg-linear-to-r from-[#9a01cd] via-white to-[#9a01cd]"
-              initial={{ width: "0%" }}
-              animate={{ width: `${progress}%` }}
-              transition={{
-                duration: 0.3,
-                ease: "easeOut",
-              }}
-            />
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+              {/* Logo Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                className="relative w-80 h-28 mb-16"
+              >
+                <Image
+                  src="/mainLogo.png"
+                  alt="NeoRecruits"
+                  fill
+                  className="object-contain brightness-0 invert"
+                  priority
+                />
+              </motion.div>
+
+              {/* Progress and Words */}
+              <div className="flex flex-col items-center space-y-6">
+                <div className="flex items-end space-x-4 overflow-hidden h-12">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={loadingWords[wordIndex]}
+                      initial={{ y: "100%", opacity: 0 }}
+                      animate={{ y: "0%", opacity: 1 }}
+                      exit={{ y: "-100%", opacity: 0 }}
+                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-white/40 text-sm font-bold tracking-[0.3em] uppercase pb-2"
+                    >
+                      {loadingWords[wordIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+
+                  <span className="text-white font-mono text-4xl font-light w-24 tabular-nums">
+                    {Math.round(progress)}%
+                  </span>
+                </div>
+
+                {/* Modern Centered Progress Bar */}
+                <div className="w-72 h-[1.5px] bg-white/10 relative overflow-hidden">
+                  <motion.div
+                    className="absolute inset-0 bg-linear-to-r from-transparent via-[#9a01cd] to-transparent"
+                    animate={{ width: `${progress}%` }}
+                    style={{ left: "50%", x: "-50%" }}
+                  />
+                  <motion.div
+                    className="absolute inset-0 bg-white/50"
+                    animate={{ width: `${progress}%` }}
+                    style={{ left: 0 }}
+                    transition={{ type: "spring", damping: 20, stiffness: 100 }}
+                  />
+                </div>
+              </div>
+
+              {/* Technical Grid Overlay */}
+              <div
+                className="fixed inset-0 pointer-events-none opacity-[0.03]"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, white 1px, transparent 1px)",
+                  backgroundSize: "40px 40px",
+                }}
+              />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
