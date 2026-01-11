@@ -19,7 +19,7 @@ export function PageLoader() {
     document.body.style.overflow = "hidden";
 
     // Progress animation
-    progressInterval = setInterval(() => {
+    progressInterval = setInterval(() => {  
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(progressInterval);
