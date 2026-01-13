@@ -18,7 +18,7 @@ export function Footer() {
   return (
     <footer className="bg-[#0b2677] text-white pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-10 border-t border-white/5">
       <div className="container mx-auto px-4 sm:px-6 md:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-10 sm:mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-10 sm:mb-16 max-w-7xl mx-auto">
           {/* Brand & Social */}
           <div className="space-y-6">
             <Link href="/" className="inline-block relative h-12 w-48">
@@ -186,7 +186,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 sm:pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+        <div className="pt-6 sm:pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left max-w-7xl mx-auto">
           <p className="text-white/40 text-xs">
             &copy; {new Date().getFullYear()} NeoRecruits. All rights reserved.
           </p>

@@ -24,8 +24,7 @@ const slides = [
     subtitle:
       "Empowering businesses through strategic recruitment and personalized career coaching.",
     image: "/hero-1-v2.png",
-    cta1: { text: "Find Jobs", href: "/jobs" },
-    cta2: { text: "Request Talent", href: "/services" },
+    cta: { text: "Learn More", href: "/services" },
     badge: "Premium Recruitment",
     // Slide 1: Fade in from left
     animation: {
@@ -50,8 +49,7 @@ const slides = [
     subtitle:
       "Discover high-impact roles in AI, Fintech, and emerging technologies.",
     image: "/hero-2-v2.png",
-    cta1: { text: "Explore Roles", href: "/jobs" },
-    cta2: { text: "Hire Engineers", href: "/services" },
+    cta: { text: "Learn More", href: "/services" },
     badge: "Tech Focus",
     // Slide 2: Fade in from bottom
     animation: {
@@ -73,8 +71,7 @@ const slides = [
     subtitle:
       "From logistics to finance, we provide specialized workforce solutions that drive growth.",
     image: "/hero-3.png",
-    cta1: { text: "Search Portal", href: "/jobs" },
-    cta2: { text: "Partner with Us", href: "/services" },
+    cta: { text: "Learn More", href: "/services" },
     badge: "Industry Leaders",
     showSearch: true,
     // Slide 3: Fade in from right with scale
@@ -158,17 +155,8 @@ export function Hero() {
                   className="object-cover object-center transition-transform duration-10000 hover:scale-105"
                   sizes="100vw"
                 />
-                <div 
-                  className="absolute inset-0"
-                  style={{
-                    backgroundImage: "linear-gradient(to right, #0b2677, rgba(11, 38, 119, 0.6), transparent)"
-                  }}
-                />
-                <div 
-                  className="absolute inset-0"
-                  style={{
-                    backgroundImage: "linear-gradient(to top, rgba(11, 38, 119, 0.4), transparent, transparent)"
-                  }}
+                <div
+                  className="absolute inset-0 bg-primary/90"
                 />
               </div>
 
@@ -251,7 +239,7 @@ export function Hero() {
               </div>
 
               {/* Content Layer with Framer Motion Animations */}
-              <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-10 h-full flex items-center pt-20 sm:pt-24 md:pt-16">
+              <div className="relative z-10 container mx-auto px-4 h-full grid grid-cols-2 place-items-center pt-20 sm:pt-24 md:pt-16 max-w-7xl">
                 <AnimatePresence mode="wait">
                   {current === index && (
                     <motion.div
@@ -262,23 +250,6 @@ export function Hero() {
                       transition={{ duration: 0.5 }}
                       className="max-w-3xl space-y-4 sm:space-y-5 md:space-y-6"
                     >
-                      {/* Badge */}
-                      <motion.div
-                        initial={slide.animation.badge.initial}
-                        animate={slide.animation.badge.animate}
-                        transition={{
-                          ...smoothTransition,
-                          delay: staggerDelay * 0,
-                        }}
-                      >
-                        <Badge
-                          variant="outline"
-                          className="px-3 py-1 sm:px-4 sm:py-1.5 text-white border-white/30 bg-white/10 backdrop-blur-md text-xs sm:text-sm font-semibold"
-                        >
-                          {slide.badge}
-                        </Badge>
-                      </motion.div>
-
                       {/* Title */}
                       <motion.h1
                         initial={slide.animation.title.initial}
@@ -316,66 +287,41 @@ export function Hero() {
                         className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 sm:pt-4"
                       >
                         <Button
-                          className="h-11 sm:h-12 px-5 sm:px-6 rounded-lg shadow-2xl shadow-[#9a01cd]/30 bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white border-none text-xs font-bold tracking-widest uppercase w-full sm:w-auto"
+                          className="h-11 sm:h-12 px-5 sm:px-6 rounded-lg shadow-2xl shadow-[#9a01cd]/30 bg-white hover:bg-gray-50 text-primary border-none text-xs font-bold tracking-widest uppercase w-full sm:w-auto"
                           asChild
                         >
-                          <Link href={slide.cta1.href}>
-                            {slide.cta1.text}
+                          <Link href={slide.cta.href}>
+                            {slide.cta.text}
                             <ArrowRight className="ml-2 w-5 h-5" />
                           </Link>
                         </Button>
-                        <Button
-                          variant="outline"
-                          className="h-11 sm:h-12 px-5 sm:px-6 rounded-lg border-2 bg-white/10 backdrop-blur-xl hover:bg-white/20 text-white transition-all text-xs font-bold tracking-widest uppercase w-full sm:w-auto"
-                          asChild
-                        >
-                          <Link href={slide.cta2.href}>{slide.cta2.text}</Link>
-                        </Button>
                       </motion.div>
-
-                      {/* Search Box (only on slide 3) */}
-                      {slide.showSearch && slide.animation.search && (
-                        <motion.div
-                          initial={slide.animation.search.initial}
-                          animate={slide.animation.search.animate}
-                          transition={{
-                            ...smoothTransition,
-                            delay: staggerDelay * 4,
-                          }}
-                          className="mt-6 sm:mt-8 md:mt-12 p-2 sm:p-3 bg-white/10 backdrop-blur-3xl border border-white/20 rounded-2xl sm:rounded-[2rem] shadow-[0_32px_64px_-15px_rgba(0,0,0,0.3)] max-w-3xl"
-                        >
-                          <div className="flex flex-col gap-2">
-                            <div className="flex flex-col sm:flex-row items-stretch gap-2">
-                              <div className="relative flex-1 group">
-                                <Briefcase className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-white transition-colors group-focus-within:text-white" />
-                                <Input
-                                  placeholder="Job title or keyword"
-                                  className="pl-10 sm:pl-12 h-12 sm:h-14 bg-transparent border-none focus-visible:ring-0 text-white text-base sm:text-lg placeholder:text-white/50"
-                                />
-                              </div>
-                              <div className="w-px bg-white/20 hidden sm:block my-3" />
-                              <div className="relative flex-1 group">
-                                <MapPin className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-white transition-colors group-focus-within:text-white" />
-                                <Input
-                                  placeholder="Location"
-                                  className="pl-10 sm:pl-12 h-12 sm:h-14 bg-transparent border-none focus-visible:ring-0 text-white text-base sm:text-lg placeholder:text-white/50"
-                                />
-                              </div>
-                            </div>
-                            <Button className="h-11 sm:h-12 px-6 sm:px-8 rounded-lg font-bold text-xs uppercase tracking-widest shadow-xl shadow-[#9a01cd]/20 active:scale-95 transition-transform bg-[#9a01cd] hover:bg-[#9a01cd]/90 text-white w-full sm:w-auto sm:self-end">
-                              Search
-                            </Button>
-                          </div>
-                        </motion.div>
-                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
+                <Image src="/spinner-nobg.png" alt="logo" width={500} height={500} className="size-100 animate-[spin_20s_linear_infinite]" />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
+
+      {/* Vertical Navigation Dots */}
+      <div className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-4">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => api?.scrollTo(index)}
+            className={cn(
+              "w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(154,1,205,0.6)]",
+              current === index
+                ? "bg-white h-8"
+                : "bg-white/30 hover:bg-white/60"
+            )}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </section>
   );
 }
