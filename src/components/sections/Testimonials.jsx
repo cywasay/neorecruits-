@@ -70,7 +70,7 @@ export function Testimonials() {
 
   return (
     <section ref={ref} className="py-12 sm:py-16 md:py-24 bg-[#f4f4f4] overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 md:px-10">
+      <div className="container mx-auto px-4 max-w-7xl mx-auto">
         {/* Main Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: -40 }}
