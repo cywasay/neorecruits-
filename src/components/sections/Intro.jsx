@@ -58,7 +58,7 @@ export function Intro() {
       />
 
       <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           {/* Left Side: Overlapping Images (Reflecting the SS) */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
@@ -140,16 +140,10 @@ export function Intro() {
               transition={{ ...smoothTransition, delay: staggerDelay * 3 }}
               className="pt-2"
             >
-              <Button
-                variant="outline"
-                className="group h-11 sm:h-12 px-5 sm:px-6 rounded-lg bg-white text-black hover:bg-white/90 border-none flex items-center gap-3 transition-all text-xs font-bold tracking-widest uppercase w-full sm:w-auto justify-center sm:justify-start"
-                asChild
-              >
-                <Link href="/about">
-                  Learn More
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
+              <Link href="/about" className="group h-11 sm:h-12 w-fit px-5 sm:px-6 rounded-lg bg-white text-black hover:bg-white/90 border-none flex items-center gap-3 transition-all text-xs font-bold tracking-widest uppercase justify-center sm:justify-start">
+                Learn More
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </motion.div>
           </motion.div>
         </div>
@@ -159,7 +153,7 @@ export function Intro() {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ ...smoothTransition, delay: staggerDelay * 4 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-12 border-t border-white/5 mt-8 sm:mt-12"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-12 border-t border-white/5 mt-8 sm:mt-12 max-w-7xl mx-auto place-items-center"
         >
           {stats.map((stat, index) => (
             <motion.div
