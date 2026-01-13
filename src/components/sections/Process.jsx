@@ -61,7 +61,7 @@ export function Process() {
         }}
       />
 
-      <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10 text-center">
+      <div className="container mx-auto px-4 relative z-10 text-center max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -40 }}
