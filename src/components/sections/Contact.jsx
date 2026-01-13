@@ -51,7 +51,7 @@ export function Contact() {
   return (
     <section ref={ref} className="relative py-12 sm:py-16 md:py-24 bg-[#f4f4f4] overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 md:px-10">
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-24">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-24 max-w-7xl mx-auto">
           {/* Left Side: Content */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
