@@ -51,19 +51,19 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-out",
         isScrolled
-          ? "bg-white/10 backdrop-blur-md border-b border-white/20 shadow-sm"
-          : "bg-transparent border-b border-transparent"
+          ? "bg-primary/30 backdrop-blur-xs"
+          : "bg-transparent"
       )}
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-10">
-        <nav className="flex items-center justify-between h-16">
+        <nav className="flex items-center justify-between max-w-7xl mx-auto py-2">
           {/* Logo */}
-          <Link href="/" className="relative h-10 w-40 block">
+          <Link href="/">
             <Image
               src="/mainLogo.png"
               alt="NeoRecruits"
-              fill
-              sizes="160px"
+              width={160}
+              height={160}
               className={cn(
                 "object-contain object-left transition-all duration-300",
                 "brightness-0 invert"
@@ -120,7 +120,7 @@ export function Header() {
                 >
                   <Button
                     variant="outline"
-                    className="border-2 border-white/30 text-white hover:bg-white/20 hover:text-white font-bold uppercase tracking-wider text-xs px-4 py-2 transition-all duration-300"
+                    className="border-2 border-white/30 text-primary hover:bg-white/20 hover:text-white font-bold uppercase tracking-wider text-xs px-4 py-2 transition-all duration-300"
                     asChild
                   >
                     <Link href="/contact">Contact Us</Link>

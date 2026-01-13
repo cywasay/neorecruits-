@@ -67,7 +67,7 @@ export function Locations() {
       />
 
       <div className="container mx-auto px-4 sm:px-6 md:px-10 relative z-10 max-w-full overflow-x-hidden">
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center w-full">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-center w-full max-w-7xl mx-auto">
           {/* Left Side: Interactive Stylized Map */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}

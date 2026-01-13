@@ -68,7 +68,7 @@ export function Blog() {
           initial={{ opacity: 0, y: -40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -40 }}
           transition={{ ...smoothTransition, delay: staggerDelay * 0 }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-8 mb-10 sm:mb-16"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 sm:gap-8 mb-10 sm:mb-16 max-w-7xl mx-auto"
         >
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -102,7 +102,7 @@ export function Blog() {
         </motion.div>
 
         {/* Blog Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
           {posts.map((post, index) => (
             <motion.div
               key={post.id}
